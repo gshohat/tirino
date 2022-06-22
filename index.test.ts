@@ -44,6 +44,18 @@ Deno.test("create users playground", () => {
 //     assertEquals(isEventEmitted, true);
 // });
 
+Deno.test("man is expected to be liked by a woman", () => {
+  const man = new User({
+    username: "gshohat",
+    gender: Gender.Male,
+  });
+  const womanRatingScore = 1400;
+
+  const expectedScoreResult = man.calcExpectedScore(womanRatingScore);
+
+  assertEquals(expectedScoreResult, 0.64);
+});
+
 Deno.test("man is expected to be rejected by a woman", () => {
   const man = new User({
     username: "gshohat",
