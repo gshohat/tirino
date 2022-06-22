@@ -4,7 +4,8 @@
 
 Love & Dating should be free - well at least it's api.
 
-Deno dating api based on the ELO rating system that showcase tinder & bumble algorithms.
+Deno dating api based on the ELO rating system that showcases tinder & bumble 
+algorithms.
 
 ## contact
 
