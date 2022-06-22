@@ -1,12 +1,20 @@
-export interface User {
+import { PlayerClass } from "./index.ts";
+
+export interface IUser {
   username: string;
   gender: Gender;
-  score: number;
 }
 
-export interface PlayGround {
+export interface IRating {
+  score: number;
+  k: number;
+}
+
+export declare class PlayGround {
   men: User[];
   women: User[];
+
+  constructor();
 }
 
 export declare enum Gender {
@@ -14,4 +22,22 @@ export declare enum Gender {
   Female = 1,
 }
 
-export declare function createPlayground(): PlayGround;
+export declare enum SwipeDirection {
+  Left = 0,
+  Right = 1,
+}
+
+export declare function create(): PlayGround;
+
+export declare class User {
+  username: string;
+  gender: Gender;
+  class: PlayerClass;
+  rating: IRating;
+
+  constructor(user: IUser);
+
+  // like(user: User) : number;
+
+  calcExpectedScore(opponentRatingScore: number): number;
+}
