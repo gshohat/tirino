@@ -1,23 +1,40 @@
 import { IRating, IUser } from "./index.d.ts";
+import { EventEmitter } from "./event-emitter/event-emitter.ts";
+
+type Events = {
+  like: [string];
+};
 
 export class PlayGround {
-  men: User[];
-  women: User[];
+  users: {
+    men: Map<string, User>;
+    women: Map<string, User>;
+  };
+  eventEmitter: EventEmitter<Events>;
 
   constructor() {
-    this.men = [];
-    this.women = [];
+    this.eventEmitter = new EventEmitter<Events>();
+    this.eventEmitter.on("like", (payload) => {
+      console.log("payload", payload); //todo remove
+    });
+    this.users = {
+      men: new Map<string, User>(),
+      women: new Map<string, User>(),
+    };
     for (let i = 0; i < 10; i++) {
+      const usernameMan = `man${i}`;
       const man = new User({
-        username: `man${i}`,
+        username: usernameMan,
         gender: Gender.Male,
-      });
+      }, this.eventEmitter);
+      this.users.men.set(usernameMan, man);
+
+      const usernameWoman = `woman${i}`;
       const woman = new User({
-        username: `woman${i}`,
+        username: usernameWoman,
         gender: Gender.Female,
-      });
-      this.men.push(man);
-      this.women.push(woman);
+      }, this.eventEmitter);
+      this.users.women.set(usernameWoman, woman);
     }
   }
 }
@@ -27,8 +44,10 @@ export class User {
   gender: Gender;
   class: PlayerClass;
   rating: IRating;
+  eventEmitter: EventEmitter<Events>;
 
-  constructor(newUser: IUser) {
+  constructor(newUser: IUser, eventEmitter: EventEmitter<Events>) {
+    this.eventEmitter = eventEmitter;
     const { username, gender } = newUser;
     this.username = username;
     this.gender = gender;
@@ -39,9 +58,10 @@ export class User {
     this.class = PlayerClass.C;
   }
 
-  // like(user: User) : number {
-  //   //todo event emitter
-  // }
+  like(user: User): void {
+    console.log("user", user); //todo remove
+    this.eventEmitter.emit("like", "hello");
+  }
 
   calcExpectedScore(opponentRatingScore: number): number {
     const expectedScore = 1 /
