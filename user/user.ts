@@ -24,9 +24,8 @@ export class User {
     this.class = PlayerClass.C;
   }
 
-  like(user: User): void {
-    console.log("user", user); //todo remove
-    this.eventEmitter.emit("like", "hello");
+  like(username: string): void {
+    this.eventEmitter.emit("like", username);
   }
 
   calcExpectedScore(opponentRatingScore: number): number {

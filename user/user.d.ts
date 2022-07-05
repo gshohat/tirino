@@ -34,7 +34,7 @@ export declare class User {
 
   constructor(user: IUser, eventEmitter: EventEmitter<Events>);
 
-  like(user: User): number;
+  like(username: string): void;
 
   calcExpectedScore(opponentRatingScore: number): number;
 }

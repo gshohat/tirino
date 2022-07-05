@@ -15,7 +15,8 @@ export class PlayGround {
   constructor() {
     this.eventEmitter = new EventEmitter<Events>();
     this.eventEmitter.on("like", (payload) => {
-      console.log("payload", payload); //todo remove
+      //todo replace
+      console.log("payload", payload);
     });
     this.users = {
       men: new Map<string, User>(),

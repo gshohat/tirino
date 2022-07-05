@@ -2,6 +2,10 @@ import { Gender, User } from "../user/user.ts";
 import { PlayGround } from "./playground.ts";
 import { assertEquals } from "https://deno.land/std@0.143.0/testing/asserts.ts";
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
+import {
+  assertSpyCall,
+  spy,
+} from "https://deno.land/std@0.137.0/testing/mock.ts";
 
 type Events = {
   like: [string];
@@ -46,9 +50,13 @@ Deno.test("man is expected to be rejected by a woman", () => {
 Deno.test("man was liked by a higher elo", () => {
   const playGround = new PlayGround();
 
-  const man0 = playGround.users.men.get("man0")!;
+  const emitSpy = spy(playGround.eventEmitter, "emit");
+
+  const manUsername = playGround.users.men.get("man0")!.username;
   const woman0 = playGround.users.women.get("woman0")!;
 
-  woman0!.like(man0);
-  //todo assert spyOn callback to be executed
+  woman0!.like(manUsername);
+  assertSpyCall(emitSpy, 0, {
+    args: ["like", manUsername],
+  });
 });
