@@ -30,7 +30,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: code formatting check
-        run: i
+        run: deno fmt --check
 
       - name: lint
         run: deno lint
