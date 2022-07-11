@@ -7,7 +7,7 @@ declare type Events = {
 
 export interface IUser {
   username: string;
-  gender: Gender;
+  gender: number;
 }
 
 export interface IRating {
