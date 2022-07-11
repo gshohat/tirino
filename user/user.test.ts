@@ -35,3 +35,20 @@ Deno.test("create a woman user", () => {
   assertEquals(woman.rating.k, 32);
   assertEquals(woman.class, PlayerClass.C);
 });
+
+Deno.test("max 8 likes a day", () => {
+  const manUsername = "gshohat";
+  const man = new User({
+    username: manUsername,
+    gender: Gender.Male,
+  }, eventEmitter);
+
+  const womanUsername = "kate";
+
+  for (let i = 1; i < 9; i++) {
+    const res = man.like(womanUsername);
+    assertEquals(res, true);
+  }
+  const res = man.like(womanUsername);
+  assertEquals(res, false);
+});

@@ -5,6 +5,8 @@ declare type Events = {
   like: [string];
 };
 
+declare type DailyLikes = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
 export interface IUser {
   username: string;
   gender: number;
@@ -30,11 +32,12 @@ export declare class User {
   gender: Gender;
   class: PlayerClass;
   rating: IRating;
+  dailyCounter: DailyLikes;
   eventEmitter: EventEmitter<Events>;
 
   constructor(user: IUser, eventEmitter: EventEmitter<Events>);
 
-  like(username: string): void;
+  like(username: string): boolean;
 
   calcExpectedScore(opponentRatingScore: number): number;
 }
