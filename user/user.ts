@@ -12,7 +12,7 @@ export class User {
   gender: Gender;
   class: PlayerClass;
   rating: IRating;
-  dailyCounter: DailyLikes;
+  dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
 
   constructor(newUser: IUser, eventEmitter: EventEmitter<Events>) {
@@ -24,17 +24,17 @@ export class User {
       score: 1500,
       k: 32,
     };
-    this.dailyCounter = 0;
+    this.dailyLikes = 0;
     this.class = PlayerClass.C;
   }
 
   like(username: string): boolean {
-    if (this.dailyCounter === 8) {
+    if (this.dailyLikes === 8) {
       return false;
     }
     //todo?
     this.eventEmitter.emit("like", username);
-    this.dailyCounter++;
+    this.dailyLikes++;
     return true;
   }
 

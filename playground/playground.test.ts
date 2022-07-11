@@ -60,3 +60,12 @@ Deno.test("man was liked by a higher elo", () => {
     args: ["like", manUsername],
   });
 });
+
+Deno.test("reset daily counter likes", () => {
+  const playGround = new PlayGround();
+  const username = "man0";
+  const man0 = playGround.users.men.get(username);
+  man0!.dailyLikes = 8;
+  const likesDailyCounter = playGround.resetDailyLikes(username, Gender.Male);
+  assertEquals(likesDailyCounter, 0);
+});

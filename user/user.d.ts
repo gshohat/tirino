@@ -32,7 +32,7 @@ export declare class User {
   gender: Gender;
   class: PlayerClass;
   rating: IRating;
-  dailyCounter: DailyLikes;
+  dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
 
   constructor(user: IUser, eventEmitter: EventEmitter<Events>);

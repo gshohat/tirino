@@ -23,19 +23,29 @@ export class PlayGround {
       women: new Map<string, User>(),
     };
     for (let i = 0; i < 10; i++) {
-      const usernameMan = `man${i}`;
+      const manUsername = `man${i}`;
       const man = new User({
-        username: usernameMan,
+        username: manUsername,
         gender: Gender.Male,
       }, this.eventEmitter);
-      this.users.men.set(usernameMan, man);
+      this.users.men.set(manUsername, man);
 
-      const usernameWoman = `woman${i}`;
+      const womanUsername = `woman${i}`;
       const woman = new User({
-        username: usernameWoman,
+        username: womanUsername,
         gender: Gender.Female,
       }, this.eventEmitter);
-      this.users.women.set(usernameWoman, woman);
+      this.users.women.set(womanUsername, woman);
+    }
+  }
+
+  resetDailyLikes(username: string, gender: Gender) {
+    if (gender === Gender.Male) {
+      const man = this.users.men.get(username);
+      return man!.dailyLikes = 0;
+    } else {
+      const woman = this.users.women.get(username);
+      return woman!.dailyLikes = 0;
     }
   }
 }
