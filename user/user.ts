@@ -1,4 +1,4 @@
-import { IRating, IUser } from "./user.d.ts";
+import { ILocation, IRating, IUser } from "./user.d.ts";
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
 
 type Events = {
@@ -12,6 +12,7 @@ export class User {
   gender: Gender;
   email: string;
   birthdate: Date;
+  location: ILocation;
   class: PlayerClass;
   rating: IRating;
   dailyLikes: DailyLikes;
@@ -19,11 +20,13 @@ export class User {
 
   constructor(newUser: IUser, eventEmitter: EventEmitter<Events>) {
     this.eventEmitter = eventEmitter;
-    const { name, gender, email, birthdate } = newUser;
+    const { name, gender, email, birthdate, location } = newUser;
     this.name = name;
     this.gender = gender;
     this.email = email;
     this.birthdate = birthdate;
+    this.location = location;
+
     this.rating = {
       score: 1500,
       k: 32,

@@ -6,12 +6,18 @@ import {
   assertSpyCall,
   spy,
 } from "https://deno.land/std@0.137.0/testing/mock.ts";
+import { ILocation } from "../user/user.d.ts";
 
 type Events = {
   like: [string];
 };
 
 const eventEmitter = new EventEmitter<Events>();
+
+const viennaLocation: ILocation = {
+  Latitude: 48.210033,
+  Longitude: 16.363449,
+};
 
 Deno.test("create users playground", () => {
   const playGround = new PlayGround();
@@ -29,6 +35,7 @@ Deno.test("man is expected to be liked by a woman", () => {
     gender: Gender.Male,
     email: "contact@giladshohat.com",
     birthdate: new Date(1990, 1, 1),
+    location: viennaLocation,
   }, eventEmitter);
   const womanRatingScore = 1400;
 
@@ -43,6 +50,7 @@ Deno.test("man is expected to be rejected by a woman", () => {
     gender: Gender.Male,
     email: "contact@giladshohat.com",
     birthdate: new Date(1990, 1, 1),
+    location: viennaLocation,
   }, eventEmitter);
   const womanRatingScore = 1600;
 

@@ -12,6 +12,7 @@ export interface IUser {
   gender: number;
   email: string;
   birthdate: Date;
+  location: ILocation;
 }
 
 export interface IRating {
@@ -27,6 +28,11 @@ export declare enum Gender {
 export declare enum SwipeDirection {
   Left = 0,
   Right = 1,
+}
+
+export interface ILocation {
+  Latitude: number;
+  Longitude: number;
 }
 
 export declare class User {

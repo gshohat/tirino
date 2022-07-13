@@ -1,8 +1,14 @@
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
 import { Gender, User } from "../user/user.ts";
+import { ILocation } from "../user/user.d.ts";
 
 type Events = {
   like: [string];
+};
+
+const viennaLocation: ILocation = {
+  Latitude: 48.210033,
+  Longitude: 16.363449,
 };
 
 export class PlayGround {
@@ -29,6 +35,7 @@ export class PlayGround {
         gender: Gender.Male,
         email: "contact@giladshohat.com",
         birthdate: new Date(1990, i, 1),
+        location: viennaLocation,
       }, this.eventEmitter);
       this.users.men.set(manName, man);
 
@@ -38,6 +45,7 @@ export class PlayGround {
         gender: Gender.Female,
         email: "kate@gmail.com",
         birthdate: new Date(1990, i, 1),
+        location: viennaLocation,
       }, this.eventEmitter);
       this.users.women.set(womanUsername, woman);
     }
