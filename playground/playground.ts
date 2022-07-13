@@ -1,14 +1,9 @@
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
 import { Gender, User } from "../user/user.ts";
-import { ILocation } from "../user/user.d.ts";
+import { createManUser, createWomanUser } from "../user/factory/factory.ts";
 
 type Events = {
   like: [string];
-};
-
-const viennaLocation: ILocation = {
-  Latitude: 48.210033,
-  Longitude: 16.363449,
 };
 
 export class PlayGround {
@@ -30,24 +25,12 @@ export class PlayGround {
     };
     for (let i = 0; i < 10; i++) {
       const manName = `man${i}`;
-      const man = new User({
-        name: manName,
-        gender: Gender.Male,
-        email: "contact@giladshohat.com",
-        birthdate: new Date(1990, i, 1),
-        location: viennaLocation,
-      }, this.eventEmitter);
+      const man = createManUser(manName, this.eventEmitter);
       this.users.men.set(manName, man);
 
-      const womanUsername = `woman${i}`;
-      const woman = new User({
-        name: womanUsername,
-        gender: Gender.Female,
-        email: "kate@gmail.com",
-        birthdate: new Date(1990, i, 1),
-        location: viennaLocation,
-      }, this.eventEmitter);
-      this.users.women.set(womanUsername, woman);
+      const womanName = `woman${i}`;
+      const woman = createWomanUser(womanName, this.eventEmitter);
+      this.users.women.set(womanName, woman);
     }
   }
 
