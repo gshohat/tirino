@@ -6,17 +6,13 @@ declare type Events = {
 
 declare type DailyLikes = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-export interface IUser {
-  name: string;
+export interface IUserDetails {
+  name?: string;
   gender: number;
-  email: string;
+  email?: string;
   birthdate: Date;
   location: ILocation;
-}
-
-export declare enum Gender {
-  Male = 0,
-  Female = 1,
+  preferences: IPreferences;
 }
 
 export interface ILocation {
@@ -29,11 +25,26 @@ export declare class User {
   gender: Gender;
   email: string;
   birthdate: Date;
+  preferences: IPreferences;
 
   dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
 
-  constructor(user: IUser, eventEmitter: EventEmitter<Events>);
+  constructor(user: IUserDetails, eventEmitter: EventEmitter<Events>);
 
   like(username: string): boolean;
+}
+
+export declare enum Gender {
+  Male = 0,
+  Female = 1,
+}
+
+export interface IPreferences {
+  ageRange: IAgeRange;
+}
+
+export interface IAgeRange {
+  min: number;
+  max: number;
 }

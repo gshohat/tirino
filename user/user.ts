@@ -1,4 +1,4 @@
-import { ILocation, IUser } from "./user.d.ts";
+import { ILocation, IPreferences, IUserDetails } from "./user.d.ts";
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
 
 type Events = {
@@ -13,19 +13,22 @@ export class User {
   email: string;
   birthdate: Date;
   location: ILocation;
+  preferences: IPreferences;
+
   dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
 
-  constructor(newUser: IUser, eventEmitter: EventEmitter<Events>) {
+  constructor(newUser: IUserDetails, eventEmitter: EventEmitter<Events>) {
+    this.dailyLikes = 0;
     this.eventEmitter = eventEmitter;
-    const { name, gender, email, birthdate, location } = newUser;
-    this.name = name;
+
+    const { name, gender, email, birthdate, location, preferences } = newUser;
+    this.name = name as string;
     this.gender = gender;
-    this.email = email;
+    this.email = email as string;
     this.birthdate = birthdate;
     this.location = location;
-
-    this.dailyLikes = 0;
+    this.preferences = preferences;
   }
 
   like(username: string): boolean {

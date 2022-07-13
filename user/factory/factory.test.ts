@@ -13,19 +13,23 @@ type Events = {
 const eventEmitter = new EventEmitter<Events>();
 
 Deno.test("create a man user", () => {
-  const name = "Gilad";
+  const name = "Romeo";
   const man = createManUser(name, eventEmitter);
   assertEquals(man.name, name);
   assertEquals(man.gender, manUserDetails.gender);
-  assertEquals(man.email, manUserDetails.email);
+  assertEquals(man.email, "Romeo@gmail.com");
   assertEquals(man.birthdate, manUserDetails.birthdate);
+  assertEquals(man.preferences.ageRange.min, 25);
+  assertEquals(man.preferences.ageRange.max, 30);
 });
 
 Deno.test("create a woman user", () => {
-  const name = "Kate";
-  const woman = createWomanUser("Kate", eventEmitter);
+  const name = "Juliet";
+  const woman = createWomanUser(name, eventEmitter);
   assertEquals(woman.name, name);
   assertEquals(woman.gender, womanUserDetails.gender);
-  assertEquals(woman.email, womanUserDetails.email);
+  assertEquals(woman.email, "Juliet@gmail.com");
   assertEquals(woman.birthdate, womanUserDetails.birthdate);
+  assertEquals(woman.preferences.ageRange.min, 25);
+  assertEquals(woman.preferences.ageRange.max, 30);
 });

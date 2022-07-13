@@ -9,8 +9,8 @@ import {
 Deno.test("create users playground", () => {
   const playGround = new PlayGround();
 
-  const man0 = playGround.users.men.get("man0");
-  const woman0 = playGround.users.women.get("woman0");
+  const man0 = playGround.users.men.get("man0@gmail.com");
+  const woman0 = playGround.users.women.get("woman0@gmail.com");
 
   assertEquals(man0!.name, "man0");
   assertEquals(woman0!.name, "woman0");
@@ -21,8 +21,8 @@ Deno.test("man was liked by a woman", () => {
 
   const emitSpy = spy(playGround.eventEmitter, "emit");
 
-  const manEmail = playGround.users.men.get("man0")!.email;
-  const woman0 = playGround.users.women.get("woman0")!;
+  const manEmail = playGround.users.men.get("man0@gmail.com")!.email;
+  const woman0 = playGround.users.women.get("woman0@gmail.com")!;
 
   woman0!.like(manEmail);
   assertSpyCall(emitSpy, 0, {
@@ -32,9 +32,9 @@ Deno.test("man was liked by a woman", () => {
 
 Deno.test("reset daily counter likes", () => {
   const playGround = new PlayGround();
-  const email = "man0";
+  const email = "man0@gmail.com";
   const man0 = playGround.users.men.get(email);
   man0!.dailyLikes = 8;
-  const likesDailyCounter = playGround.resetDailyLikes(email, Gender.Male);
-  assertEquals(likesDailyCounter, 0);
+  const dailyLikesCounter = playGround.resetDailyLikes(email, Gender.Male);
+  assertEquals(dailyLikesCounter, 0);
 });

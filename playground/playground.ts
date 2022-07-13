@@ -26,11 +26,11 @@ export class PlayGround {
     for (let i = 0; i < 10; i++) {
       const manName = `man${i}`;
       const man = createManUser(manName, this.eventEmitter);
-      this.users.men.set(manName, man);
+      this.users.men.set(man.email, man);
 
       const womanName = `woman${i}`;
       const woman = createWomanUser(womanName, this.eventEmitter);
-      this.users.women.set(womanName, woman);
+      this.users.women.set(woman.email, woman);
     }
   }
 
