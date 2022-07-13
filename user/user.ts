@@ -8,8 +8,10 @@ type Events = {
 type DailyLikes = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export class User {
-  username: string;
+  name: string;
   gender: Gender;
+  email: string;
+  birthdate: Date;
   class: PlayerClass;
   rating: IRating;
   dailyLikes: DailyLikes;
@@ -17,9 +19,11 @@ export class User {
 
   constructor(newUser: IUser, eventEmitter: EventEmitter<Events>) {
     this.eventEmitter = eventEmitter;
-    const { username, gender } = newUser;
-    this.username = username;
+    const { name, gender, email, birthdate } = newUser;
+    this.name = name;
     this.gender = gender;
+    this.email = email;
+    this.birthdate = birthdate;
     this.rating = {
       score: 1500,
       k: 32,

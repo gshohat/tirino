@@ -8,8 +8,10 @@ declare type Events = {
 declare type DailyLikes = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export interface IUser {
-  username: string;
+  name: string;
   gender: number;
+  email: string;
+  birthdate: Date;
 }
 
 export interface IRating {
@@ -28,8 +30,11 @@ export declare enum SwipeDirection {
 }
 
 export declare class User {
-  username: string;
+  name: string;
   gender: Gender;
+  email: string;
+  birthdate: Date;
+
   class: PlayerClass;
   rating: IRating;
   dailyLikes: DailyLikes;

@@ -23,17 +23,21 @@ export class PlayGround {
       women: new Map<string, User>(),
     };
     for (let i = 0; i < 10; i++) {
-      const manUsername = `man${i}`;
+      const manName = `man${i}`;
       const man = new User({
-        username: manUsername,
+        name: manName,
         gender: Gender.Male,
+        email: "contact@giladshohat.com",
+        birthdate: new Date(1990, i, 1),
       }, this.eventEmitter);
-      this.users.men.set(manUsername, man);
+      this.users.men.set(manName, man);
 
       const womanUsername = `woman${i}`;
       const woman = new User({
-        username: womanUsername,
+        name: womanUsername,
         gender: Gender.Female,
+        email: "kate@gmail.com",
+        birthdate: new Date(1990, i, 1),
       }, this.eventEmitter);
       this.users.women.set(womanUsername, woman);
     }

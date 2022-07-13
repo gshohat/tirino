@@ -19,14 +19,16 @@ Deno.test("create users playground", () => {
   const man0 = playGround.users.men.get("man0");
   const woman0 = playGround.users.women.get("woman0");
 
-  assertEquals(man0!.username, "man0");
-  assertEquals(woman0!.username, "woman0");
+  assertEquals(man0!.name, "man0");
+  assertEquals(woman0!.name, "woman0");
 });
 
 Deno.test("man is expected to be liked by a woman", () => {
   const man = new User({
-    username: "gshohat",
+    name: "gshohat",
     gender: Gender.Male,
+    email: "contact@giladshohat.com",
+    birthdate: new Date(1990, 1, 1),
   }, eventEmitter);
   const womanRatingScore = 1400;
 
@@ -37,8 +39,10 @@ Deno.test("man is expected to be liked by a woman", () => {
 
 Deno.test("man is expected to be rejected by a woman", () => {
   const man = new User({
-    username: "gshohat",
+    name: "gshohat",
     gender: Gender.Male,
+    email: "contact@giladshohat.com",
+    birthdate: new Date(1990, 1, 1),
   }, eventEmitter);
   const womanRatingScore = 1600;
 
@@ -52,20 +56,20 @@ Deno.test("man was liked by a higher elo", () => {
 
   const emitSpy = spy(playGround.eventEmitter, "emit");
 
-  const manUsername = playGround.users.men.get("man0")!.username;
+  const manEmail = playGround.users.men.get("man0")!.email;
   const woman0 = playGround.users.women.get("woman0")!;
 
-  woman0!.like(manUsername);
+  woman0!.like(manEmail);
   assertSpyCall(emitSpy, 0, {
-    args: ["like", manUsername],
+    args: ["like", manEmail],
   });
 });
 
 Deno.test("reset daily counter likes", () => {
   const playGround = new PlayGround();
-  const username = "man0";
-  const man0 = playGround.users.men.get(username);
+  const email = "man0";
+  const man0 = playGround.users.men.get(email);
   man0!.dailyLikes = 8;
-  const likesDailyCounter = playGround.resetDailyLikes(username, Gender.Male);
+  const likesDailyCounter = playGround.resetDailyLikes(email, Gender.Male);
   assertEquals(likesDailyCounter, 0);
 });

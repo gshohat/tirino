@@ -9,38 +9,53 @@ type Events = {
 const eventEmitter = new EventEmitter<Events>();
 
 Deno.test("create a man user", () => {
-  const username = "gshohat";
-  const initialScore = 1500;
+  const name = "Gilad";
+  const initialScore = 1500; //todo remove
+  const email = "contact@giladshohat.com";
+  const birthdate = new Date(1986, 1, 1);
   const man = new User({
-    username,
+    name,
     gender: Gender.Male,
+    email,
+    birthdate,
   }, eventEmitter);
-  assertEquals(man.username, username);
+  assertEquals(man.name, name);
   assertEquals(man.gender, Gender.Male);
   assertEquals(man.rating.score, initialScore);
   assertEquals(man.rating.k, 32);
   assertEquals(man.class, PlayerClass.C);
+  assertEquals(man.email, email);
+  assertEquals(man.birthdate, birthdate);
 });
 
 Deno.test("create a woman user", () => {
-  const username = "kate";
+  const name = "kate";
   const initialScore = 1500;
+  const email = "kate@gmail.com";
+  const birthdate = new Date(1986, 2, 2);
   const woman = new User({
-    username,
+    name,
     gender: Gender.Female,
+    email,
+    birthdate,
   }, eventEmitter);
-  assertEquals(woman.username, username);
+  assertEquals(woman.name, name);
   assertEquals(woman.gender, Gender.Female);
   assertEquals(woman.rating.score, initialScore);
   assertEquals(woman.rating.k, 32);
   assertEquals(woman.class, PlayerClass.C);
+  assertEquals(woman.email, email);
+  assertEquals(woman.birthdate, birthdate);
 });
 
 Deno.test("max 8 likes a day", () => {
-  const manUsername = "gshohat";
+  const manName = "gshohat";
   const man = new User({
-    username: manUsername,
+    name: manName,
     gender: Gender.Male,
+
+    birthdate: new Date(1990, 1, 1),
+    email: "contact@giladshohat.com",
   }, eventEmitter);
 
   const womanUsername = "kate";
