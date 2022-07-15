@@ -1,16 +1,14 @@
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
 import { Gender, User } from "../user/user.ts";
 import { createManUser, createWomanUser } from "../user/factory/factory.ts";
+import { IUsers } from "./playground.d.ts";
 
 type Events = {
   like: [string];
 };
 
 export class PlayGround {
-  users: {
-    men: Map<string, User>;
-    women: Map<string, User>;
-  };
+  users: IUsers;
   eventEmitter: EventEmitter<Events>;
 
   constructor() {
@@ -23,15 +21,25 @@ export class PlayGround {
       men: new Map<string, User>(),
       women: new Map<string, User>(),
     };
+    //todo extract
     for (let i = 0; i < 10; i++) {
       const manName = `man${i}`;
-      const man = createManUser(manName, this.eventEmitter);
+      const manBirthdate = new Date(1990 - i, 0, 1);
+      //todo extract with gender
+      const man = createManUser(manName, manBirthdate, this.eventEmitter);
       this.users.men.set(man.email, man);
 
       const womanName = `woman${i}`;
-      const woman = createWomanUser(womanName, this.eventEmitter);
+      const womanBirthDate = new Date(1990 - i, 0, 1);
+      const woman = createWomanUser(
+        womanName,
+        womanBirthDate,
+        this.eventEmitter,
+      );
       this.users.women.set(woman.email, woman);
     }
+
+    createPools(this.users);
   }
 
   resetDailyLikes(username: string, gender: Gender) {
@@ -44,3 +52,39 @@ export class PlayGround {
     }
   }
 }
+
+const createPools = (users: IUsers) => {
+  //todo extract for loop
+  for (const [_manEmail, man] of users.men.entries()) {
+    const agePreference = man.preferences.ageRange;
+    for (const [womanEmail, woman] of users.women.entries()) {
+      const res = isAgeBetweenRange(
+        woman.age.years,
+        agePreference.min,
+        agePreference.max,
+      );
+      if (!res) continue;
+      man.pool.push({ email: womanEmail, ageYears: woman.age.years });
+    }
+  }
+  for (const [_womanEmail, woman] of users.men.entries()) {
+    const ageRangePreference = woman.preferences.ageRange;
+    for (const [manEmail, man] of users.men.entries()) {
+      const res = isAgeBetweenRange(
+        man.age.years,
+        ageRangePreference.min,
+        ageRangePreference.max,
+      );
+      if (!res) continue;
+      woman.pool.push({ email: manEmail, ageYears: man.age.years });
+    }
+  }
+};
+
+export const isAgeBetweenRange = (
+  age: number,
+  min: number,
+  max: number,
+): boolean => {
+  return (age >= min && age <= max);
+};

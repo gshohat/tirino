@@ -13,44 +13,44 @@ const viennaLocation: ILocation = {
 
 export const createManUser = (
   name: string,
+  birthdate: Date,
   eventEmitter: EventEmitter<Events>,
 ): User => {
   return new User({
-    ...{ name, email: `${name}@gmail.com` },
+    ...{ name, email: `${name}@gmail.com`, birthdate },
     ...manUserDetails,
   }, eventEmitter);
 };
 
 export const manUserDetails: IUserDetails = {
   gender: Gender.Male,
-  birthdate: new Date(1990, 1, 1),
   location: viennaLocation,
   preferences: {
     ageRange: {
       min: 25,
-      max: 30,
+      max: 32,
     },
   },
 };
 
 export const createWomanUser = (
   name: string,
+  birthdate: Date,
   eventEmitter: EventEmitter<Events>,
 ): User => {
   return new User({
-    ...{ name, email: `${name}@gmail.com` },
+    ...{ name, email: `${name}@gmail.com`, birthdate },
     ...womanUserDetails,
   }, eventEmitter);
 };
 
 export const womanUserDetails: IUserDetails = {
   gender: Gender.Female,
-  birthdate: new Date(1990, 1, 1),
   location: viennaLocation,
   preferences: {
     ageRange: {
       min: 25,
-      max: 30,
+      max: 32,
     },
   },
 };

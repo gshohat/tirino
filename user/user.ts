@@ -1,6 +1,6 @@
 import { ILocation, IPreferences, IUserDetails } from "./user.d.ts";
 import { EventEmitter } from "../event-emitter/event-emitter.ts";
-
+import { IPartner } from "./user.d.ts";
 type Events = {
   like: [string];
 };
@@ -11,9 +11,13 @@ export class User {
   name: string;
   gender: Gender;
   email: string;
-  birthdate: Date;
+  age: {
+    birthdate: Date;
+    years: number;
+  };
   location: ILocation;
   preferences: IPreferences;
+  pool: IPartner[];
 
   dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
@@ -26,9 +30,13 @@ export class User {
     this.name = name as string;
     this.gender = gender;
     this.email = email as string;
-    this.birthdate = birthdate;
+    this.age = {
+      birthdate: birthdate as Date,
+      years: calculateAge(birthdate as Date),
+    };
     this.location = location;
     this.preferences = preferences;
+    this.pool = [];
   }
 
   like(username: string): boolean {
@@ -46,3 +54,9 @@ export enum Gender {
   Male,
   Female,
 }
+
+export const calculateAge = (birthday: Date) => {
+  const ageDifMs = Date.now() - new Date(birthday).getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};

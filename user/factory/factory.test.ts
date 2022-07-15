@@ -14,22 +14,30 @@ const eventEmitter = new EventEmitter<Events>();
 
 Deno.test("create a man user", () => {
   const name = "Romeo";
-  const man = createManUser(name, eventEmitter);
+  const man = createManUser(
+    name,
+    manUserDetails.birthdate as Date,
+    eventEmitter,
+  );
   assertEquals(man.name, name);
   assertEquals(man.gender, manUserDetails.gender);
   assertEquals(man.email, "Romeo@gmail.com");
-  assertEquals(man.birthdate, manUserDetails.birthdate);
+  assertEquals(man.age.birthdate, manUserDetails.birthdate);
   assertEquals(man.preferences.ageRange.min, 25);
-  assertEquals(man.preferences.ageRange.max, 30);
+  assertEquals(man.preferences.ageRange.max, 32);
 });
 
 Deno.test("create a woman user", () => {
   const name = "Juliet";
-  const woman = createWomanUser(name, eventEmitter);
+  const woman = createWomanUser(
+    name,
+    womanUserDetails.birthdate as Date,
+    eventEmitter,
+  );
   assertEquals(woman.name, name);
   assertEquals(woman.gender, womanUserDetails.gender);
   assertEquals(woman.email, "Juliet@gmail.com");
-  assertEquals(woman.birthdate, womanUserDetails.birthdate);
+  assertEquals(woman.age.birthdate, womanUserDetails.birthdate);
   assertEquals(woman.preferences.ageRange.min, 25);
-  assertEquals(woman.preferences.ageRange.max, 30);
+  assertEquals(woman.preferences.ageRange.max, 32);
 });

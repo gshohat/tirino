@@ -10,7 +10,7 @@ export interface IUserDetails {
   name?: string;
   gender: number;
   email?: string;
-  birthdate: Date;
+  birthdate?: Date;
   location: ILocation;
   preferences: IPreferences;
 }
@@ -26,6 +26,7 @@ export declare class User {
   email: string;
   birthdate: Date;
   preferences: IPreferences;
+  pool: string[];
 
   dailyLikes: DailyLikes;
   eventEmitter: EventEmitter<Events>;
@@ -47,4 +48,9 @@ export interface IPreferences {
 export interface IAgeRange {
   min: number;
   max: number;
+}
+
+export interface IPartner {
+  email: string;
+  ageYears: number;
 }
